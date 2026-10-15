@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         alphaXiv Link & Like for arXiv
 // @namespace    https://github.com/SomeBottle/fastfood
-// @version      0.0.2
+// @version      0.0.3
 // @description  Add alphaXiv link and like info to arXiv search results and abstract pages.
 // @author       SomeBottle
 // @match        https://*.arxiv.org/abs/*
@@ -159,7 +159,7 @@
      */
     const mountOnAbstractPage = () => {
         // 获得摘要页面头部
-        const headerElem = document.querySelector('.header-breadcrumbs');
+        const headerElem = document.querySelector('#content-inner .title');
         if (!headerElem) {
             console.warn(`${SCRIPT_PREFIX} Header element not found on abstract page.`);
             return;
@@ -173,12 +173,12 @@
             alphaXivLink.href = alphaXivUrl;
             alphaXivLink.target = '_blank';
             alphaXivLink.textContent = 'alphaXiv';
-            headerElem.insertAdjacentHTML('beforeend', '<span>|</span>')
+            alphaXivLink.style.fontSize = '16px';
+            headerElem.insertAdjacentHTML('beforeend', '<span> | </span>')
             headerElem.appendChild(alphaXivLink);
-            headerElem.insertAdjacentHTML('beforeend', '<span></span>')
-            headerElem.appendChild(document.createTextNode('('));
-            headerElem.appendChild(makeLikeButton(arxivId, "#FFFFFF"));
-            headerElem.appendChild(document.createTextNode(')'));
+            headerElem.insertAdjacentHTML('beforeend', '<span> </span><span style="font-size: 16px;">(</span>')
+            headerElem.appendChild(makeLikeButton(arxivId, "#000"));
+            headerElem.insertAdjacentHTML('beforeend', '<span style="font-size: 16px;">)</span>')
         }
     };
     /**
